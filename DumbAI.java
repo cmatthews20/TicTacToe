@@ -7,6 +7,7 @@ import java.util.Random;
 public class DumbAI implements AI {
     
     private Random random = new Random();
+    char piece;
 
     /*
      * TBD: Additional private members?
@@ -19,14 +20,20 @@ public class DumbAI implements AI {
      *              the 'X'.
      */
     public DumbAI(boolean aiIsX) {
-        /*
-         * TBD
-         */
+        if (aiIsX) {
+            piece = 'X';
+        } else {
+            piece = 'O';
+        }
     }
 
     public Move chooseMove(Board board) {
         /*
          * TBD
          */
+        int i = random.nextInt(3);
+        int j = random.nextInt(3);
+        Move move = new Move(i,j,piece);
+        return move;
     }
 }

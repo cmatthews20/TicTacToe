@@ -15,10 +15,10 @@ public class SmartAI implements AI {
      * @param aiIsX Indicates whether the AI player's piece is the 'X'.
      */
     public SmartAI(boolean aiIsX) {
-        throw new UnsupportedOperationException("Not implemented.");
+        throw new UnsupportedOperationException("SmartAI not implemented.");
     }
 
     public Move chooseMove(Board board) {
-        throw new UnsupportedOperationException("Not implemented.");
+        throw new UnsupportedOperationException("SmartAI not implemented.");
     }
 }

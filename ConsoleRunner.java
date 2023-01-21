@@ -35,13 +35,14 @@ public class ConsoleRunner {
          */
         System.out.println("Do you want to play as X (Y/N, case sensitive): ");
         String playerInput = scanner.nextLine();
+        playerInput = playerInput.toUpperCase();
         playerIsX = playerInput.matches("Y"); // Case insensitive
-        System.out.println(playerIsX); //TODO: Remove after testing
-
+        
         System.out.println("Do you want a challenge (Y/N, case sensitive): ");
         String challengeInput = scanner.nextLine();
+        challengeInput = challengeInput.toUpperCase();
         isChallenging = challengeInput.matches("Y"); // Case insensitive
-        System.out.println(isChallenging); //TODO: Remove after testing
+        
 
         game = new Game(playerIsX, isChallenging);
     }
@@ -58,6 +59,57 @@ public class ConsoleRunner {
          * 
          * Private helper methods?
          */
+
+         Board gameBoard = game.getBoard();
+         String gameBoardString = gameBoard.toString();
+
+         if(!playerIsX){
+            
+            game.aiPlacePiece();
+
+            System.out.println("After AI move: ");
+
+            gameBoard = game.getBoard();
+            gameBoardString = gameBoard.toString();
+            System.out.println(gameBoardString);
+         }
+
+         while(game.getStatus() == GameStatus.IN_PROGRESS){
+
+            System.out.println("Enter desired x-coordinate: ");
+            int xCoordInput = scanner.nextInt();
+
+            System.out.println("Enter desired y-coordinate: ");
+            int yCoordInput = scanner.nextInt();
+
+            game.placePlayerPiece(xCoordInput, yCoordInput);
+            
+            System.out.println("After your move: ");
+
+            
+            
+            System.out.println(gameBoardString);
+            
+            System.out.println("After AI move: ");
+
+            game.aiPlacePiece();
+
+            gameBoard = game.getBoard();
+            gameBoardString = gameBoard.toString();
+            System.out.println(gameBoardString);
+
+
+            //TODO: Remove tests
+            System.out.println("playerIsX: " + playerIsX);
+            System.out.println("isChallenging: " + isChallenging); 
+            System.out.println("Latest coordinate inputs: " + xCoordInput + ", " + yCoordInput);
+            System.out.println("Current game status: " + game.getStatus());
+
+            break;
+         }
+         
+
+         
         
     }
 }

@@ -7,6 +7,8 @@ public class Game {
     private Board board = new Board();
     private GameStatus status;
     private AI ai;
+    public char playerPiece;
+    public char aiPiece;
 
     /*
      * TBD: Additional private members?
@@ -18,11 +20,23 @@ public class Game {
     public Game(boolean playerIsX, boolean challenging) {
         /*
          * TBD
+         
          */
+
+         status = GameStatus.IN_PROGRESS;
+
         if(challenging){
             ai = new SmartAI(!playerIsX);
         } else{
             ai = new DumbAI(!playerIsX);
+        }
+
+        if(playerIsX){
+            playerPiece = 'X';
+            aiPiece = 'O';
+        } else{
+            playerPiece = 'O';
+            aiPiece = 'X';
         }
     }
 
@@ -54,6 +68,21 @@ public class Game {
         /*
          * TBD
          */
+
+        if(status == GameStatus.IN_PROGRESS){
+            Move move = new Move(i, j, playerPiece);
+            board = new Board(board, move);
+            return true;
+        } else{
+            return false;
+        }
+
+        //TODO update status
+
+
+
+        
+
     }
 
     /**
@@ -63,5 +92,7 @@ public class Game {
         /*
          * TBD
          */
+        Move move = ai.chooseMove(board);
+        board = new Board(board, move);
     }
 }
