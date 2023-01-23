@@ -7,10 +7,6 @@ public class Move {
 	private int j;
 	private char piece;
 
-    /**
-     * Construct a move, which represents placing the given type of piece in
-     * column i, row j.
-     */
 	public Move(int i, int j, char piece) {
 		this.i = i;
 		this.j = j;

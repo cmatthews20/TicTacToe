@@ -9,42 +9,55 @@ import java.util.Scanner;
 
 public class ConsoleRunner {
 
-    /**
-     * Should the human player be the X? X always goes first.
-     */
     private boolean playerIsX;
 
     private boolean isChallenging;
 
     private Game game;
+
+    private Board gameBoard;
+
+    private String gameBoardString;
+
+    private GameStatus gameStatus;
+
+    private int hCoordInput;
+    
+    private int vCoordInput;
     
     // Use to process text input from the user.
     private Scanner scanner = new Scanner(System.in);
 
-    /*
-     * TBD: Additional private members?
-     */
-
-    /**
-     * Constructor
-     */
     public ConsoleRunner() {    
         /*
          * Uses 'next' method of Scanner and the 'matches' of the String
          * class to process user responses as strings.
          */
-        System.out.println("Do you want to play as X (Y/N, case sensitive): ");
+        System.out.println("Do you want to play as X (Y/N): ");
         String playerInput = scanner.nextLine();
         playerInput = playerInput.toUpperCase();
-        playerIsX = playerInput.matches("Y"); // Case insensitive
+        playerIsX = playerInput.matches("Y");
         
-        System.out.println("Do you want a challenge (Y/N, case sensitive): ");
+        System.out.println("Do you want a challenge (Y/N): ");
         String challengeInput = scanner.nextLine();
         challengeInput = challengeInput.toUpperCase();
-        isChallenging = challengeInput.matches("Y"); // Case insensitive
+        isChallenging = challengeInput.matches("Y");
         
-
         game = new Game(playerIsX, isChallenging);
+    }
+
+    private void printCurrentBoard(){
+        gameBoard = game.getBoard();
+        gameBoardString = gameBoard.toString();
+        System.out.println(gameBoardString);
+    }
+
+    private boolean gameIsOver(){
+        gameStatus = game.getStatus();
+        if(gameStatus == GameStatus.X_WON){System.out.println("X WINS!"); return true;}
+        if(gameStatus == GameStatus.O_WON){System.out.println("O WINS!"); return true;}
+        if(gameStatus == GameStatus.DRAW){System.out.println("DRAW!"); return true;}
+        return false;
     }
 
     /**
@@ -52,64 +65,38 @@ public class ConsoleRunner {
      * when one party has won or there has been a draw.
      */
     public void mainLoop() {
-        /*
-         * TBD
-         *
-         * Use 'nextInt' method of Scanner class to read user responses as ints
-         * 
-         * Private helper methods?
-         */
-
-         Board gameBoard = game.getBoard();
-         String gameBoardString = gameBoard.toString();
+         // 'nextInt' method of Scanner class used to read user responses as ints
 
          if(!playerIsX){
-            
             game.aiPlacePiece();
-
             System.out.println("After AI move: ");
-
-            gameBoard = game.getBoard();
-            gameBoardString = gameBoard.toString();
-            System.out.println(gameBoardString);
+            printCurrentBoard();
          }
 
          while(game.getStatus() == GameStatus.IN_PROGRESS){
 
-            System.out.println("Enter desired x-coordinate: ");
-            int xCoordInput = scanner.nextInt();
+            System.out.println("Enter desired vertical coordinate: ");
+            hCoordInput = scanner.nextInt();
 
-            System.out.println("Enter desired y-coordinate: ");
-            int yCoordInput = scanner.nextInt();
+            System.out.println("Enter desired horizontal coordinate: ");
+            vCoordInput = scanner.nextInt();
 
-            game.placePlayerPiece(xCoordInput, yCoordInput);
+            boolean moveCompleted = game.placePlayerPiece(hCoordInput, vCoordInput);
+
+            if(!moveCompleted){
+                System.out.println("Spot taken. Try again.");
+                continue;
+            }
             
             System.out.println("After your move: ");
-
+            printCurrentBoard();
+            if(gameIsOver()){break;}
             
-            
-            System.out.println(gameBoardString);
-            
-            System.out.println("After AI move: ");
-
             game.aiPlacePiece();
 
-            gameBoard = game.getBoard();
-            gameBoardString = gameBoard.toString();
-            System.out.println(gameBoardString);
-
-
-            //TODO: Remove tests
-            System.out.println("playerIsX: " + playerIsX);
-            System.out.println("isChallenging: " + isChallenging); 
-            System.out.println("Latest coordinate inputs: " + xCoordInput + ", " + yCoordInput);
-            System.out.println("Current game status: " + game.getStatus());
-
-            break;
-         }
-         
-
-         
-        
+            System.out.println("After AI move: ");
+            printCurrentBoard();
+            if(gameIsOver()){break;}
+        }
     }
 }

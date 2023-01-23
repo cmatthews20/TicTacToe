@@ -7,8 +7,6 @@ import java.lang.UnsupportedOperationException;
 
 public class SmartAI implements AI {
     
-    private char piece;
-    
     /**
      * Construct a SmartAI.
      * 
