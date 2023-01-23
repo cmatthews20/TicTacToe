@@ -62,9 +62,9 @@ public class Game {
     }
 
     private void updateStatus(char piece){
-        if(hasPlayerWon(piece) && piece == 'X'){status = GameStatus.X_WON;}
-        if(hasPlayerWon(piece) && piece == 'O'){status = GameStatus.O_WON;}
-        if(board.isFull()){status = GameStatus.DRAW;}
+        if(hasPlayerWon(piece) && piece == 'X'){status = GameStatus.X_WON; return;}
+        if(hasPlayerWon(piece) && piece == 'O'){status = GameStatus.O_WON; return;}
+        if(board.isFull()){status = GameStatus.DRAW; return;}
     }
     
     /**
