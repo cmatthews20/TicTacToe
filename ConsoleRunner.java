@@ -10,20 +10,15 @@ import java.util.Scanner;
 public class ConsoleRunner {
 
     private boolean playerIsX;
-
     private boolean isChallenging;
-
     private Game game;
-
     private Board gameBoard;
-
     private String gameBoardString;
-
     private GameStatus gameStatus;
-
     private int hCoordInput;
-    
     private int vCoordInput;
+    private String playerInput = "";
+    private String challengeInput = "";
     
     // Use to process text input from the user.
     private Scanner scanner = new Scanner(System.in);
@@ -33,13 +28,14 @@ public class ConsoleRunner {
          * Uses 'next' method of Scanner and the 'matches' of the String
          * class to process user responses as strings.
          */
+        
         System.out.println("Do you want to play as X (Y/N): ");
-        String playerInput = scanner.nextLine();
+        playerInput = scanner.nextLine();
         playerInput = playerInput.toUpperCase();
         playerIsX = playerInput.matches("Y");
-        
+    
         System.out.println("Do you want a challenge (Y/N): ");
-        String challengeInput = scanner.nextLine();
+        challengeInput = scanner.nextLine();
         challengeInput = challengeInput.toUpperCase();
         isChallenging = challengeInput.matches("Y");
         
@@ -84,7 +80,7 @@ public class ConsoleRunner {
             boolean moveCompleted = game.placePlayerPiece(hCoordInput, vCoordInput);
 
             if(!moveCompleted){
-                System.out.println("Spot taken. Try again.");
+                System.out.println("Invalid Entry. Try again.");
                 continue;
             }
             

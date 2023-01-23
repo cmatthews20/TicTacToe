@@ -36,19 +36,21 @@ public class Game {
         return status;
     }
 
-    private boolean playerWon(char playerPiece) {
+    private boolean hasPlayerWon(char playerPiece) {
         // Check rows
         for (int i = 0; i < 3; i++) {
             if (board.get(i,0) == playerPiece && board.get(i,1) == playerPiece && board.get(i,2) == playerPiece) {
                 return true;
             }
         }
+
         // Check columns
         for (int i = 0; i < 3; i++) {
             if (board.get(0,i) == playerPiece && board.get(1,i) == playerPiece && board.get(2,i) == playerPiece) {
                 return true;
             }
         }
+        
         // Check diagonals
         if (board.get(0,0) == playerPiece && board.get(1,1) == playerPiece && board.get(2,2) == playerPiece) {
             return true;
@@ -60,8 +62,8 @@ public class Game {
     }
 
     private void updateStatus(char piece){
-        if(playerWon(piece) && piece == 'X'){status = GameStatus.X_WON;}
-        if(playerWon(piece) && piece == 'O'){status = GameStatus.O_WON;}
+        if(hasPlayerWon(piece) && piece == 'X'){status = GameStatus.X_WON;}
+        if(hasPlayerWon(piece) && piece == 'O'){status = GameStatus.O_WON;}
         if(board.isFull()){status = GameStatus.DRAW;}
     }
     
@@ -86,8 +88,6 @@ public class Game {
             return true;
         }
     }
-
-
 
     /**
      * @precondition status == IN_PROGRESS

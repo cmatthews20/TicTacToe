@@ -7,11 +7,6 @@ import java.lang.UnsupportedOperationException;
 
 public class SmartAI implements AI {
     
-    /**
-     * Construct a SmartAI.
-     * 
-     * @param aiIsX Indicates whether the AI player's piece is the 'X'.
-     */
     public SmartAI(boolean aiIsX) {
         throw new UnsupportedOperationException("SmartAI not implemented.");
     }

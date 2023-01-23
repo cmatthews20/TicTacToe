@@ -43,7 +43,6 @@ public class Board {
         return boardString;
     }
 
-
     public char get(int i, int j) {
         if(i < 0 || i > 2 || j < 0 || j > 2){
             throw new UnsupportedOperationException("Board <get> method called with invalid indices.");
