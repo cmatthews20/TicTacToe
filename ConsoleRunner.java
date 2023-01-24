@@ -71,13 +71,13 @@ public class ConsoleRunner {
 
          while(game.getStatus() == GameStatus.IN_PROGRESS){
 
-            System.out.println("Enter desired vertical coordinate: ");
+            System.out.println("Enter desired horizontal coordinate: ");
             hCoordInput = scanner.nextInt();
 
-            System.out.println("Enter desired horizontal coordinate: ");
+            System.out.println("Enter desired vertical coordinate: ");
             vCoordInput = scanner.nextInt();
 
-            boolean moveCompleted = game.placePlayerPiece(hCoordInput, vCoordInput);
+            boolean moveCompleted = game.placePlayerPiece(vCoordInput, hCoordInput);
 
             if(!moveCompleted){
                 System.out.println("Invalid Entry. Try again.");
